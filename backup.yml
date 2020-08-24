@@ -1,0 +1,16 @@
+---
+- name: Tarballs for [production] node1
+   hosts: production
+   tasks:
+     - name: creating tarball /var/tmp/production.tar.gz for /var/lib directory
+       archive:
+         path: /var/lib
+         dest: /var/tmp/production.tar.gz
+
+ - name: Tarballs for [backup] node2
+   hosts: backup
+   tasks:
+     - name: Tarball /var/tmp/backup.tar.gz for /var/log/httpd directory
+       archive:
+         path: /var/log/httpd
+         dest: /var/tmp/backup.tar.gz

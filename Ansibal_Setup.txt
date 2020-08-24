@@ -1,0 +1,56 @@
+	root
+-------------------------------------------------------
+ vim /etc/hosts
+ yum install ansible
+ yum install vim-enhanced -y  
+ useradd ec2
+ echo redhat | passwd --stdin ec2
+ yum install ansible -y
+ vim /etc/sudoers.d/lab-ansible
+ su - ec2
+---------------------------------------------------------
+	ec2
+---------------------------------------------------------
+ mkdir demo-project
+ cd demo-project/
+ vim inventory
+ ansible production -i inventory --list-host
+ ansible production -i inventory -m ping
+ ssh-keygen   
+ ssh-copy-id ec2@node2.example.com
+ ssh ec2@node2.example.com
+ ssh ec2@node1.example.com
+ vim ansible.cfg
+ vim inventory 
+ ansible production -m ping
+ ansible production -m command -a'ls /root'
+ vim tag.yml
+ ansible production -m ping
+ ansible-playbook tag.yml --syntax-check
+ ansible-playbook tag.yml --check
+ ansible-playbook tag.yml
+--------------------------------------------------------
+	inventory	
+-------------------------------------------------------
+ [production]
+ node1.example.com
+
+ [backup]
+ node2.example.com
+--------------------------------------------------------
+	ansible.cfg
+-------------------------------------------------------
+ [defaults]
+ inventory = ./inventory
+ remote_user = ec2
+ ask_pass = False
+
+ [privilege_escalation]
+ become = True
+ become_method = sudo
+ become_user = root
+ become_ask_pass = False
+--------------------------------------------------------
+	/etc/sudoers.d/lab-ansible
+-------------------------------------------------------
+ ec2 ALL=(ALL) NOPASSWD:ALL
